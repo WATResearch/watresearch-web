@@ -4,14 +4,15 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.database import get_db
 
 from . import service
-from .schemas import BlogResponse
+from .schemas import BlogResponse, PaginatedBlogResponse
 
 router = APIRouter()
 
 
-@router.get("/", response_model=list[BlogResponse])
-async def list_blogs(db: AsyncSession = Depends(get_db)):
-    return await service.get_blogs(db, published_only=True)
+@router.get("/", response_model=PaginatedBlogResponse)
+async def list_blogs(page: int = 1, page_size: int = 10, db: AsyncSession = Depends(get_db)):
+    items, total = await service.get_blogs(db, published_only=True, page=page, page_size=page_size)
+    return PaginatedBlogResponse(items=items, total=total, page=page, page_size=page_size)
 
 
 @router.get("/{slug}", response_model=BlogResponse)

@@ -38,3 +38,10 @@ class BlogResponse(BaseModel):
     updated_at: datetime
 
     model_config = {"from_attributes": True}
+
+
+class PaginatedBlogResponse(BaseModel):
+    items: list[BlogResponse]
+    total: int
+    page: int
+    page_size: int
