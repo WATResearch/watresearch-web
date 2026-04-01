@@ -4,7 +4,7 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from models.blog import Blog
+from app.models.blog import Blog
 
 from .schemas import BlogCreate, BlogUpdate
 

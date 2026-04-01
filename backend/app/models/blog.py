@@ -4,7 +4,7 @@ from sqlalchemy import Boolean, Column, DateTime, String, Text
 from sqlalchemy.dialects.postgresql import ARRAY, UUID
 from sqlalchemy.sql import func
 
-from database import Base
+from app.database import Base
 
 
 class Blog(Base):

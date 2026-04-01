@@ -8,3 +8,5 @@ python-dotenv
 PyJWT
 supabase
 alembic
+sqladmin
+itsdangerous

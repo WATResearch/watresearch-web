@@ -1,12 +1,14 @@
 from fastapi import Depends, FastAPI
 from sqlalchemy import text
 
-from api.v1.router import router as v1_router
-from auth import get_current_user
-from database import engine
+from app.admin import setup_admin
+from app.api.v1.router import router as v1_router
+from app.auth import get_current_user
+from app.database import engine
 
 app = FastAPI()
 app.include_router(v1_router, prefix="/api/v1")
+setup_admin(app)
 
 
 @app.get("/")

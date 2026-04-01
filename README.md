@@ -29,8 +29,8 @@ cd backend
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env  # fill in your Supabase credentials
-uvicorn main:app --reload
+cp .env.example .env  # fill in with Supabase credentials
+uvicorn app.main:app --reload
 ```
 
 ## Database Migrations (Alembic)
@@ -66,7 +66,7 @@ alembic downgrade -1
 
 | Command | Description |
 | :--- | :--- |
-| `uvicorn main:app --reload` | Start dev server |
+| `uvicorn app.main:app --reload` | Start dev server |
 | `alembic revision --autogenerate -m "msg"` | Generate migration |
 | `alembic upgrade head` | Apply migrations |
 

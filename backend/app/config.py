@@ -7,6 +7,8 @@ class Settings(BaseSettings):
     supabase_secret_key: str
     supabase_jwt_secret: str
     database_url: str
+    admin_username: str
+    admin_password: str
 
     model_config = {"env_file": ".env"}
 

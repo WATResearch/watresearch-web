@@ -6,9 +6,9 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from alembic import context
 
-from config import settings
-from database import Base
-import models.blog  # noqa: F401 — registers model with Base.metadata
+from app.config import settings
+from app.database import Base
+import app.models.blog  # noqa: F401 — registers model with Base.metadata
 
 config = context.config
 config.set_main_option("sqlalchemy.url", settings.database_url.replace("postgresql://", "postgresql+asyncpg://", 1))
