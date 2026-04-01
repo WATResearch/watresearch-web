@@ -1,4 +1,5 @@
 from fastapi import Depends, FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 
 from app.admin import setup_admin
@@ -7,6 +8,12 @@ from app.auth import get_current_user
 from app.database import engine
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5175", "https://watresearch.ca"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app.include_router(v1_router, prefix="/api/v1")
 setup_admin(app)
 
