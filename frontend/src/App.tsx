@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Research from './pages/Research'
 import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
+import NotFound from './pages/NotFound'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/research" element={<Research />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   )
