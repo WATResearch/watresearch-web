@@ -60,7 +60,9 @@ const Blog: React.FC = () => {
             <p className="text-gray-400">Loading...</p>
           </div>
         ) : posts.length === 0 ? (
-          <p className="text-gray-400">No posts yet.</p>
+          <div className="flex items-center justify-center" style={{ minHeight: '60vh' }}>
+            <p className="text-gray-400">No posts yet.</p>
+          </div>
         ) : (
           <div className="space-y-6">
             {posts.map(post => (
