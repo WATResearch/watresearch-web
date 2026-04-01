@@ -10,7 +10,7 @@ from app.database import engine
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5175", "https://watresearch.ca"],
+    allow_origins=["http://localhost:5175", "https://watresearch.ca", "https://www.watresearch.ca"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
