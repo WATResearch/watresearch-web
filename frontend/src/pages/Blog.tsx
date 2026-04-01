@@ -1,21 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import type { BlogPost, PaginatedResponse } from '../types/blog'
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8001'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
+import { getPosts } from '../api/blog'
+import type { BlogPost } from '../types/blog'
 
 const Blog: React.FC = () => {
   const [posts, setPosts] = useState<BlogPost[]>([])
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(true)
+  const animated = useRef(false)
   const pageSize = 10
 
   useEffect(() => {
     setLoading(true)
-    fetch(`${API_URL}/api/v1/blogs/?page=${page}&page_size=${pageSize}`)
-      .then(res => res.json())
-      .then((data: PaginatedResponse<BlogPost>) => {
+    getPosts(page, pageSize)
+      .then(({ data }) => {
         setPosts(data.items)
         setTotal(data.total)
       })
@@ -23,27 +24,51 @@ const Blog: React.FC = () => {
       .finally(() => setLoading(false))
   }, [page])
 
+  useGSAP(() => {
+    if (loading || posts.length === 0 || animated.current) return
+    animated.current = true
+
+    const tl = gsap.timeline()
+    tl.to('.loading-indicator', {
+      opacity: 0,
+      duration: 0.3,
+      ease: 'power2.in',
+      onComplete: () => {
+        gsap.set('.loading-indicator', { display: 'none' })
+      },
+    })
+    tl.fromTo('.blog-title',
+      { opacity: 0, y: 30, visibility: 'hidden' },
+      { opacity: 1, y: 0, visibility: 'visible', duration: 0.8, ease: 'power3.out' },
+    )
+    tl.fromTo('.blog-card',
+      { opacity: 0, y: 30, visibility: 'hidden' },
+      { opacity: 1, y: 0, visibility: 'visible', duration: 0.5, stagger: 0.08, ease: 'power3.out' },
+      '-=0.4',
+    )
+  }, { dependencies: [loading, posts] })
+
   const totalPages = Math.ceil(total / pageSize)
 
   return (
     <div className="min-h-screen bg-black text-white pt-24 px-6">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 animate-fade-up">Blog</h1>
+        <h1 className="blog-title text-4xl font-bold mb-8" style={{ visibility: 'hidden' }}>Blog</h1>
 
         {loading ? (
-          <div className="flex justify-center mt-32">
+          <div className="loading-indicator flex items-center justify-center" style={{ minHeight: '60vh' }}>
             <p className="text-gray-400">Loading...</p>
           </div>
         ) : posts.length === 0 ? (
           <p className="text-gray-400">No posts yet.</p>
         ) : (
           <div className="space-y-6">
-            {posts.map((post, i) => (
+            {posts.map(post => (
               <Link
                 key={post.id}
                 to={`/blog/${post.slug}`}
-                className="block border border-gray-800 rounded-lg p-5 hover:border-gray-600 transition-colors animate-fade-up"
-                style={{ animationDelay: `${i * 80}ms` }}
+                className="blog-card block border border-gray-800 rounded-lg p-5 hover:border-gray-600 transition-colors"
+                style={{ visibility: 'hidden' }}
               >
                 <h2 className="text-xl font-semibold">{post.title}</h2>
                 <p className="text-gray-400 mt-1 text-sm">
