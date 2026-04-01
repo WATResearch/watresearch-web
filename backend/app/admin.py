@@ -1,7 +1,11 @@
+from pathlib import Path
+
 from sqladmin import Admin, ModelView
 from wtforms import TextAreaField
 from sqladmin.authentication import AuthenticationBackend
 from starlette.requests import Request
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 from app.config import settings
 from app.database import engine
@@ -37,5 +41,5 @@ class BlogAdmin(ModelView, model=Blog):
 
 def setup_admin(app):
     auth_backend = AdminAuth(secret_key=settings.supabase_jwt_secret)
-    admin = Admin(app, engine, authentication_backend=auth_backend, templates_dir="templates")
+    admin = Admin(app, engine, authentication_backend=auth_backend, templates_dir=str(BASE_DIR / "templates"))
     admin.add_view(BlogAdmin)
