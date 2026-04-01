@@ -28,19 +28,22 @@ const Blog: React.FC = () => {
   return (
     <div className="min-h-screen bg-black text-white pt-24 px-6">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8">Blog</h1>
+        <h1 className="text-4xl font-bold mb-8 animate-fade-up">Blog</h1>
 
         {loading ? (
-          <p className="text-gray-400">Loading...</p>
+          <div className="flex justify-center mt-32">
+            <p className="text-gray-400">Loading...</p>
+          </div>
         ) : posts.length === 0 ? (
           <p className="text-gray-400">No posts yet.</p>
         ) : (
           <div className="space-y-6">
-            {posts.map(post => (
+            {posts.map((post, i) => (
               <Link
                 key={post.id}
                 to={`/blog/${post.slug}`}
-                className="block border border-gray-800 rounded-lg p-5 hover:border-gray-600 transition-colors"
+                className="block border border-gray-800 rounded-lg p-5 hover:border-gray-600 transition-colors animate-fade-up"
+                style={{ animationDelay: `${i * 80}ms` }}
               >
                 <h2 className="text-xl font-semibold">{post.title}</h2>
                 <p className="text-gray-400 mt-1 text-sm">
