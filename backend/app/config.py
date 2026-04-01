@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     database_url: str
     admin_username: str
     admin_password: str
+    cors_origins: str = ""
 
     model_config = {"env_file": ".env"}
 

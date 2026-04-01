@@ -5,12 +5,13 @@ from sqlalchemy import text
 from app.admin import setup_admin
 from app.api.v1.router import router as v1_router
 from app.auth import get_current_user
+from app.config import settings
 from app.database import engine
 
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5175", "https://watresearch.ca", "https://www.watresearch.ca"],
+    allow_origins=[o.strip() for o in settings.cors_origins.split(",") if o.strip()],
     allow_methods=["*"],
     allow_headers=["*"],
 )
