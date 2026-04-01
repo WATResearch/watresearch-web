@@ -19,6 +19,7 @@ The official website for WATResearch.
 ```bash
 cd frontend
 npm install
+cp .env.example .env # set VITE_API_URL
 npm run dev
 ```
 
@@ -29,7 +30,7 @@ cd backend
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env  # fill in with Supabase credentials
+cp .env.example .env # fill in Supabase credentials + admin credentials
 uvicorn app.main:app --reload
 ```
 
@@ -70,10 +71,14 @@ alembic downgrade -1
 | `alembic revision --autogenerate -m "msg"` | Generate migration |
 | `alembic upgrade head` | Apply migrations |
 
+## Admin Panel
+
+Accessible at `/admin` on the backend (e.g. `localhost:8000/admin` or `api.watresearch.ca/admin`). Used to manage blog posts. Credentials are set via `ADMIN_USERNAME` and `ADMIN_PASSWORD` in `.env`.
+
 ## Deployment
 
 - **Frontend:** Vercel auto-deploys on push to `main`
-- **Backend:** Railway auto-deploys on push to `main`
+- **Backend:** Railway auto-deploys on push to `main` (runs `start.sh` which applies migrations then starts uvicorn)
 
 ## Contributing
 
