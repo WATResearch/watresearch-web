@@ -33,8 +33,8 @@ const Home: React.FC = () => {
 
   return (
     <div ref={containerRef} className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white flex flex-col items-center justify-center">
-      <h1 className="hero-stagger hero-title text-7xl font-bold tracking-tight">WATResearch</h1>
-      <p className="hero-stagger mt-4 text-lg text-gray-500 dark:text-gray-400">Advancing AI research at the University of Waterloo</p>
+      <h1 className="hero-stagger hero-title text-4xl md:text-7xl font-bold tracking-tight">WATResearch</h1>
+      <p className="hero-stagger mt-4 text-base md:text-lg text-gray-500 dark:text-gray-400 px-6 text-center">Advancing AI research at the University of Waterloo</p>
     </div>
   )
 }

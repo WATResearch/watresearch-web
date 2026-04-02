@@ -67,7 +67,7 @@ const BlogPost: React.FC = () => {
         <div className="max-w-3xl mx-auto">
           <div className="post-header" style={{ visibility: 'hidden' }}>
             <Link to="/blog" className="text-gray-400 dark:text-gray-500 hover:text-black dark:hover:text-white text-sm inline-flex items-center gap-1">&larr; Back to blog</Link>
-            <h1 className="text-4xl font-bold mt-4">{post.title}</h1>
+            <h1 className="text-2xl md:text-4xl font-bold mt-4">{post.title}</h1>
             <p className="text-gray-500 dark:text-gray-400 mt-2 text-sm">
               {post.author} · {new Date(post.created_at).toLocaleDateString()}
             </p>
