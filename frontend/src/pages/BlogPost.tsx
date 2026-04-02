@@ -49,39 +49,39 @@ const BlogPost: React.FC = () => {
 
   if (error || (!loading && !post)) {
     return (
-      <div className="min-h-screen bg-black text-white pt-24 px-6">
+      <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white pt-24 px-6">
         <div className="max-w-3xl mx-auto">
-          <p className="text-gray-400">Post not found.</p>
-          <Link to="/blog" className="text-gray-500 hover:text-white mt-4 inline-block">Back to blog</Link>
+          <p className="text-gray-500 dark:text-gray-400">Post not found.</p>
+          <Link to="/blog" className="text-gray-400 dark:text-gray-500 hover:text-black dark:hover:text-white mt-4 inline-block">Back to blog</Link>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-black text-white pt-24 px-6 pb-25">
+    <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white pt-24 px-6 pb-25">
       <div className="loading-indicator flex items-center justify-center" style={{ minHeight: loading ? '60vh' : 'auto' }}>
-        {loading && <p className="text-gray-400">Loading...</p>}
+        {loading && <p className="text-gray-500 dark:text-gray-400">Loading...</p>}
       </div>
       {post && (
         <div className="max-w-3xl mx-auto">
           <div className="post-header" style={{ visibility: 'hidden' }}>
-            <Link to="/blog" className="text-gray-500 hover:text-white text-sm">Back to blog</Link>
+            <Link to="/blog" className="text-gray-400 dark:text-gray-500 hover:text-black dark:hover:text-white text-sm inline-flex items-center gap-1">&larr; Back to blog</Link>
             <h1 className="text-4xl font-bold mt-4">{post.title}</h1>
-            <p className="text-gray-400 mt-2 text-sm">
+            <p className="text-gray-500 dark:text-gray-400 mt-2 text-sm">
               {post.author} · {new Date(post.created_at).toLocaleDateString()}
             </p>
             {post.tags.length > 0 && (
               <div className="flex gap-2 mt-3">
                 {post.tags.map(tag => (
-                  <span key={tag} className="text-xs text-gray-400 border border-gray-700 rounded px-2 py-0.5">
+                  <span key={tag} className="text-xs text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-700 rounded px-2 py-0.5">
                     {tag}
                   </span>
                 ))}
               </div>
             )}
           </div>
-          <div className="post-content mt-8 text-gray-300 prose prose-invert max-w-none" style={{ visibility: 'hidden' }}>
+          <div className="post-content mt-8 text-gray-600 dark:text-gray-300 prose dark:prose-invert max-w-none" style={{ visibility: 'hidden' }}>
             <Markdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{post.content}</Markdown>
           </div>
         </div>
