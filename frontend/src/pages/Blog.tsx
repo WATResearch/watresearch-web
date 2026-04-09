@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import posts from '../content/posts'
+import posts from '../content/registry'
 
 const Blog: React.FC = () => {
   const [page, setPage] = useState(1)

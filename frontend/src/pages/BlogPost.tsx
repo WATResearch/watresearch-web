@@ -1,6 +1,6 @@
 import React, { Suspense, useMemo } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import posts from '../content/posts'
+import posts from '../content/registry'
 import BlogPostLayout from '../components/BlogPostLayout'
 
 const BlogPost: React.FC = () => {
