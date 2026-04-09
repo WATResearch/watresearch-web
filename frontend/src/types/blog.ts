@@ -1,17 +1,14 @@
-export interface BlogPost {
-  id: string
-  title: string
+import type { ComponentType } from 'react'
+
+export interface PostMeta {
   slug: string
+  title: string
   description: string
-  content: string
   author: string
+  date: string
   tags: string[]
-  created_at: string
 }
 
-export interface PaginatedResponse<T> {
-  items: T[]
-  total: number
-  page: number
-  page_size: number
+export interface PostEntry extends PostMeta {
+  component: () => Promise<{ default: ComponentType }>
 }

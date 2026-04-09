@@ -8,7 +8,6 @@ from alembic import context
 
 from app.config import settings
 from app.database import Base
-import app.models.blog  # noqa: F401 — registers model with Base.metadata
 
 config = context.config
 config.set_main_option("sqlalchemy.url", settings.database_url.replace("postgresql://", "postgresql+asyncpg://", 1))

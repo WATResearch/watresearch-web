@@ -1,42 +1,18 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { getPosts } from '../api/blog'
-import type { BlogPost } from '../types/blog'
+import posts from '../content/posts'
 
 const Blog: React.FC = () => {
-  const [posts, setPosts] = useState<BlogPost[]>([])
   const [page, setPage] = useState(1)
-  const [total, setTotal] = useState(0)
-  const [loading, setLoading] = useState(true)
-  const animated = useRef(false)
   const pageSize = 10
 
-  useEffect(() => {
-    setLoading(true)
-    getPosts(page, pageSize)
-      .then(({ data }) => {
-        setPosts(data.items)
-        setTotal(data.total)
-      })
-      .catch(() => setPosts([]))
-      .finally(() => setLoading(false))
-  }, [page])
+  const totalPages = Math.ceil(posts.length / pageSize)
+  const pagePosts = posts.slice((page - 1) * pageSize, page * pageSize)
 
   useGSAP(() => {
-    if (loading || posts.length === 0 || animated.current) return
-    animated.current = true
-
     const tl = gsap.timeline()
-    tl.to('.loading-indicator', {
-      opacity: 0,
-      duration: 0.3,
-      ease: 'power2.in',
-      onComplete: () => {
-        gsap.set('.loading-indicator', { display: 'none' })
-      },
-    })
     tl.fromTo('.blog-title',
       { opacity: 0, y: 30, visibility: 'hidden' },
       { opacity: 1, y: 0, visibility: 'visible', duration: 0.8, ease: 'power3.out' },
@@ -46,35 +22,29 @@ const Blog: React.FC = () => {
       { opacity: 1, y: 0, visibility: 'visible', duration: 0.5, stagger: 0.08, ease: 'power3.out' },
       '-=0.4',
     )
-  }, { dependencies: [loading, posts] })
-
-  const totalPages = Math.ceil(total / pageSize)
+  })
 
   return (
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white pt-24 px-6">
       <div className="max-w-3xl mx-auto">
         <h1 className="blog-title text-4xl font-bold mb-8" style={{ visibility: 'hidden' }}>Blog</h1>
 
-        {loading ? (
-          <div className="loading-indicator flex items-center justify-center" style={{ minHeight: '60vh' }}>
-            <p className="text-gray-500 dark:text-gray-400">Loading...</p>
-          </div>
-        ) : posts.length === 0 ? (
+        {posts.length === 0 ? (
           <div className="flex items-center justify-center" style={{ minHeight: '60vh' }}>
             <p className="text-gray-500 dark:text-gray-400">No posts yet.</p>
           </div>
         ) : (
           <div className="space-y-6">
-            {posts.map(post => (
+            {pagePosts.map(post => (
               <Link
-                key={post.id}
+                key={post.slug}
                 to={`/blog/${post.slug}`}
                 className="blog-card block border border-gray-200 dark:border-gray-800 rounded-lg p-5 hover:border-gray-400 dark:hover:border-gray-600 transition-colors"
                 style={{ visibility: 'hidden' }}
               >
                 <h2 className="text-xl font-semibold">{post.title}</h2>
                 <p className="text-gray-500 dark:text-gray-400 mt-1 text-sm">
-                  {post.author} · {new Date(post.created_at).toLocaleDateString()}
+                  {post.author} · {new Date(post.date).toLocaleDateString()}
                 </p>
                 <p className="text-gray-600 dark:text-gray-300 mt-2">{post.description}</p>
                 {post.tags.length > 0 && (
