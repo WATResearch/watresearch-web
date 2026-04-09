@@ -27,11 +27,9 @@ npm run dev
 
 ```bash
 cd backend
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
+uv sync
 cp .env.example .env # fill in Supabase credentials + admin credentials
-uvicorn app.main:app --reload
+uv run uvicorn app.main:app --reload
 ```
 
 ## Database Migrations (Alembic)
@@ -40,16 +38,16 @@ Migrations are managed with Alembic. From the `backend/` directory:
 
 ```bash
 # Generate a migration after changing a model
-alembic revision --autogenerate -m "describe your change"
+uv run alembic revision --autogenerate -m "describe your change"
 
 # Apply migrations to the database
-alembic upgrade head
+uv run alembic upgrade head
 
 # Check current migration state
-alembic current
+uv run alembic current
 
 # Rollback one migration
-alembic downgrade -1
+uv run alembic downgrade -1
 ```
 
 ## Scripts
@@ -67,9 +65,9 @@ alembic downgrade -1
 
 | Command | Description |
 | :--- | :--- |
-| `uvicorn app.main:app --reload` | Start dev server |
-| `alembic revision --autogenerate -m "msg"` | Generate migration |
-| `alembic upgrade head` | Apply migrations |
+| `uv run uvicorn app.main:app --reload` | Start dev server |
+| `uv run alembic revision --autogenerate -m "msg"` | Generate migration |
+| `uv run alembic upgrade head` | Apply migrations |
 
 ## Admin Panel
 

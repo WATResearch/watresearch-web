@@ -1,5 +1,5 @@
 #!/bin/bash
 set -e
 
-alembic upgrade head
-uvicorn app.main:app --host 0.0.0.0 --port $PORT --proxy-headers --forwarded-allow-ips="*"
+uv run alembic upgrade head
+uv run uvicorn app.main:app --host 0.0.0.0 --port $PORT --proxy-headers --forwarded-allow-ips="*"
