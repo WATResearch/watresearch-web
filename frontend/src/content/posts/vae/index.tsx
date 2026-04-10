@@ -1,4 +1,4 @@
-import { InlineMath, BlockMath } from 'react-katex'
+import { InlineMath, BlockMath } from '../../../components/Math'
 import AutoencoderDiagram from './AutoencoderDiagram'
 import EncoderDiagram from './EncoderDiagram'
 import LatentSpaceDiagram from './LatentSpaceDiagram'
