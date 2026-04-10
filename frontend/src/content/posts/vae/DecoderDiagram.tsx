@@ -1,5 +1,4 @@
 const OUTPUT_DIM = 32
-const LATENT_DIM = 4
 
 const outputHeights = Array.from({ length: OUTPUT_DIM }, (_, i) =>
   0.3 + 0.7 * Math.abs(Math.sin(i * 1.7 + 0.5))
