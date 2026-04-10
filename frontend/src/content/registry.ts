@@ -2,8 +2,17 @@ import type { PostEntry } from '../types/blog'
 
 const posts: PostEntry[] = [
   {
+    slug: 'vae',
+    title: 'Variational Autoencoders (VAEs)',
+    description: '',
+    author: 'Aaron Kang',
+    date: '2026-04-10',
+    tags: [],
+    component: () => import('./posts/vae/index'),
+  },
+  {
     slug: 'mdlm',
-    title: 'MDLM',
+    title: 'Masked Diffusion Language Models (MDLMs)',
     description: '',
     author: 'Aaron Kang',
     date: '2026-04-09',
