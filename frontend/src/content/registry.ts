@@ -2,6 +2,15 @@ import type { PostEntry } from '../types/blog'
 
 const posts: PostEntry[] = [
   {
+    slug: 'speculative-decoding',
+    title: 'Speculative Decoding',
+    description: '',
+    author: 'Aaron Kang',
+    date: '2026-04-18',
+    tags: [],
+    component: () => import('./posts/speculative-decoding/index'),
+  },
+  {
     slug: 'vae',
     title: 'Variational Autoencoders (VAEs)',
     description: '',
